@@ -89,7 +89,7 @@ sleep 5
 echo -e "\nФайловая система zfs"
 sleep 2
 sudo yum install -y -q http://download.zfsonlinux.org/epel/zfs-release.el7_5.noarch.rpm
-echo "Запретим установку модулей DKMS и разрешим установку модулей kABI (займёт некоторое время)"
+echo "Запретим установку модулей DKMS и разрешим установку модулей kABI"
 sudo yum-config-manager --disable zfs > /dev/null 2>&1
 sudo yum-config-manager --enable zfs-kmod > /dev/null 2>&1
 echo -e "\nУстановим необходимые программы...(займёт некоторое время)"
@@ -97,8 +97,8 @@ sudo yum install zfs -y -q
 sudo /sbin/modprobe zfs
 echo -e "\nСоздадим stripe pool из дисков sdb и sdc"
 sudo zpool create mypool /dev/sdb /dev/sdc
-echo "Создадим файловую систему и примонтируем её в домашнем каталоге"
-sudo zfs create mypool/mydirectory && sudo zfs set mountpoint=/home/vagrant/mydirectory mypool/mydirectory
+echo "Создадим файловую систему"
+sudo zfs create mypool/mydirectory
 echo -e "\nВывод команды lsblk"
 lsblk
 sleep 5
